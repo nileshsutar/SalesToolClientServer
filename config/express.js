@@ -14,6 +14,7 @@ var express = require('express'),
     response = require('response'),
     https = require('https');
 var config = require('./config-dev');
+var initiatedProspect = require('../lib/initiateprospect');
 
 /*var GoogleContacts = require('google-contacts').GoogleContacts;
  var c = new GoogleContacts({
@@ -98,8 +99,11 @@ module.exports=function(){
 
         console.log("Mail notifier started!!!");
 
+        initiatedProspect.emailSubjectSearch(mail);
 
         var subject = mail.subject;
+        
+
         var from = mail.from;
         // var date = mail.date.getDate()+"-"+mail.date.getMonth()+"-"+mail.date.getFullYear()+" "+mail.date.getHours()+":"+mail.date.getMinutes()+":"+mail.date.getSeconds();
         var date = mail.date.toLocaleString();
@@ -117,7 +121,7 @@ module.exports=function(){
             mail.message = '';
         }
         console.log("check note:"+mail.text.match("Please note this email is generated using Presales Dashboard"));
-        console.log("html:"+ typeof mail.html);
+        //console.log("html:"+ typeof mail.html);
         if (mail.text.match("Please note this email is generated using Presales Dashboard") == null || ( typeof mail.html == 'string')) {
             //put all emails in db
             console.log("mail sent from personal account");
@@ -151,14 +155,14 @@ module.exports=function(){
                 {
                     if(typeof subject == 'string')
                     {
-                        console.log("prospect:"+prospects[i].name+" subject:"+subject);
-                        console.log("subject.length - (prospects[i].name.length+2:"+(subject.length - (prospects[i].name.length+1)));
-                        console.log("subject.index+prospects[i].name:"+(subject.indexOf(" "+prospects[i].name)));
+                        //console.log("prospect:"+prospects[i].name+" subject:"+subject);
+                        //console.log("subject.length - (prospects[i].name.length+2:"+(subject.length - (prospects[i].name.length+1)));
+                        //console.log("subject.index+prospects[i].name:"+(subject.indexOf(" "+prospects[i].name)));
                         if ((subject.toLowerCase().indexOf(prospects[i].name.toLowerCase() +" ") == 0) || (subject.indexOf(" "+prospects[i].name)!= -1 && (subject.indexOf(" "+prospects[i].name) == (subject.length - (prospects[i].name.length+1)))) || (subject.length == prospects[i].name.length && subject.toLowerCase() == prospects[i].name.toLowerCase()) || (subject.toLowerCase().search(" "+prospects[i].name.toLowerCase()+" ") != -1) )
                         {
-                            console.log("Found prospect in subject with id:" + prospects[i]._id + " name:" + prospects[i].name);
+                           // console.log("Found prospect in subject with id:" + prospects[i]._id + " name:" + prospects[i].name);
                             req.body.prospect_id = prospects[i]._id;
-                            console.log("current stage:"+prospects[i].state_id);
+                            //console.log("current stage:"+prospects[i].state_id);
                             req.body.stage = prospects[i].state_id;
                             prospectFlag = 1;
                             prospectFound = prospects[i]._id;
@@ -167,13 +171,13 @@ module.exports=function(){
                     }
                     if (typeof message == "string")
                     {
-                        console.log("prospect:"+prospects[i].name+" message:"+message);
-                        console.log("message.length - (prospects[i].name.length+2:"+(message.length - (prospects[i].name.length+2)));
-                        console.log("message.index+prospects[i].name:"+(message.indexOf(" "+prospects[i].name)));
+                        //console.log("prospect:"+prospects[i].name+" message:"+message);
+                        //console.log("message.length - (prospects[i].name.length+2:"+(message.length - (prospects[i].name.length+2)));
+                        //console.log("message.index+prospects[i].name:"+(message.indexOf(" "+prospects[i].name)));
                         //console.log("message.toLowerCase().indexOf(prospects[i].name.toLowerCase():"+(message.toLowerCase().indexOf(prospects[i].name.toLowerCase())));
                         if ((message.toLowerCase().indexOf(prospects[i].name.toLowerCase() +" ") == 0) || (message.indexOf(" "+prospects[i].name)!= -1 && (message.indexOf(" "+prospects[i].name) == (message.length - (prospects[i].name.length+2)))) || (message.length == prospects[i].name.length && message.toLowerCase() == prospects[i].name.toLowerCase()) || (message.toLowerCase().search(" "+prospects[i].name.toLowerCase()+" ") != -1))
                         {
-                            console.log("Found prospect in message with id:" + prospects[i]._id + " name:" + prospects[i].name);
+                            //console.log("Found prospect in message with id:" + prospects[i]._id + " name:" + prospects[i].name);
                             req.body.prospect_id = prospects[i]._id;
                             req.body.stage = prospects[i].state_id;
                             prospectFlag = 1;

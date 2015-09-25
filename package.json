@@ -34,7 +34,11 @@
     "request": "^2.55.0",
     "response": "^0.14.0",
     "querystring": "^0.2.0",
-    "mail-notifier":"^0.2.4"
+    "mail-notifier":"^0.2.4",
+    "mongodb": "~2.0",
+    "lodash": "~3.10.1",
+    "string": "~3.3.1",
+    "node-rules": "~3.0.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5"

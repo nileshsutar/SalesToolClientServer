@@ -19,7 +19,7 @@ exports.list=function(req,res,next){
 exports.create=function(req,res){
     console.log("create cycle");
     var cycle = new Cycles (req.body);
-
+    console.log("Cycle=", cycle);
     cycle.save(function(err){
         if(err){
             console.log("error:"+err);

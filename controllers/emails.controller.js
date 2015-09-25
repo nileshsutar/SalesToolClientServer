@@ -18,6 +18,7 @@ exports.list=function(req,res,next){
         res.send(emails);
     })
 };
+
 exports.emailById=function(req,res,next,id){
     Emails.findOne({_id:id},function(err,emails){
         if(err){
@@ -45,6 +46,15 @@ exports.uncategorizedList=function(req,res,next){
         res.send(emails);
     })
 };
+exports.getUncategorizedList=function(callback){
+        console.log("uncategorizedList ");
+    //Emails.find({stage: "0"}, function (err, emails) {
+    Emails.find({prospect_id:"",stage: "0"}, function (err, emails) {
+    //Emails.find(function(err, emails){
+        callback(err, emails);
+    })
+};
+
 exports.uncategorizedListForProspect=function(req,res,next,prospect_id){
 console.log("uncategorizedListForProspect : "+prospect_id);
     //Emails.find({stage: "0"}, function (err, emails) {

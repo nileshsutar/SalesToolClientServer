@@ -37,6 +37,7 @@ module.exports=function(){
     var app = express();
     var base_url = config.base_url;
     var upload_url = config.upload_url;
+
     //var base_url = 'http://lit-wave-1072.herokuapp.com';
     //var upload_url = './static';
 
@@ -48,9 +49,9 @@ module.exports=function(){
     app.use(bodyParser.urlencoded({extended:false}));
     app.use(methodOverride('_method'));
     app.use(cookieParser());
+    
     //app.use(express.static(path.join(__dirname,    '../public/')));
-    app.use('/static', express.static(path.join(__dirname,    '../public/')));
-
+    app.use('/static', express.static(path.join(__dirname,    '../public/')));   
     /*Configure the multer.*/
 
     //app.use(multer({ dest: upload_url+'/uploads/',
@@ -95,11 +96,11 @@ module.exports=function(){
      var uemailArray = [];*/
 
 
-    notifier(imap).on('mail',function(mail){
-
+    notifier(imap).on('mail',function(mail){        
         console.log("Mail notifier started!!!");
 
         initiatedProspect.emailSubjectSearch(mail);
+        //initiatedProspect.createProspectNameFromEmail(mail);
 
         var subject = mail.subject;
         

@@ -6,6 +6,8 @@ var mongoose = require('mongoose'),
     Employees = mongoose.model('Employees'),
     Organizations = mongoose.model('Organizations');
 
+ var Q = require("q");   
+
 exports.list=function(req,res,next){
     console.log("list");
     Projects.find(function(err, projects){
@@ -59,16 +61,19 @@ exports.create=function(req,res){
         org.save(function(err){ });
     });*/
 
-
+    createpromise = Q.defer();
     projects.save(function(err){
         console.log(err);
         if(err){
             res.status(400).send(err.err);
+            createpromise.reject(err);
         }
         else{
             res.send(projects);
+            createpromise.resolve(projects);
         }
-    })
+    });
+    return createpromise.promise;
 };
 exports.projectByName=function(req,res,next,name){
    // console.log("projectByName:"+name);
